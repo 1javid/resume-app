@@ -17,13 +17,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class MainUser extends JFrame {
 
@@ -83,7 +78,7 @@ public class MainUser extends JFrame {
 
                 UserSkills selectedUserSkill = list.get(tblSkills.getSelectedRow());
                 String skillName = txtSkillName.getText();
-                Skills skill = null;
+                Skills skill;
                 if (skillName != null && !skillName.trim().isEmpty()) {
                     skill = new Skills(0, skillName);
                     skillsDaoInter.insertSkills(skill);
@@ -104,7 +99,7 @@ public class MainUser extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String skillName = txtSkillName.getText();
-                Skills skills = null;
+                Skills skills;
                 if (skillName != null && !skillName.trim().isEmpty()) {
                     skills = new Skills(0, skillName);
                     skillsDaoInter.insertSkills(skills);
@@ -135,7 +130,7 @@ public class MainUser extends JFrame {
                 UserSkills selectedUserSkills = list.get(tblSkills.getSelectedRow());
 
                 String skillName = txtSkillName.getText();
-                Skills skills = null;
+                Skills skills;
                 if (skillName != null && !skillName.trim().isEmpty()) {
                     skills = new Skills(0, skillName);
                     skillsDaoInter.insertSkills(skills);
@@ -179,7 +174,6 @@ public class MainUser extends JFrame {
     }
 
     private void fillWindow(int index) {
-
         cbSkills.removeAllItems();
         List<Skills> skills = skillsDaoInter.getAllSkills();
         if(flag == 2) {

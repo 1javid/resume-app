@@ -10,8 +10,7 @@ public class ConnectionAbstract {
          String url = "jdbc:mysql://localhost:3306/resume";
          String username = "root";
          String password = "Vusacanu123!";
-         Connection c = DriverManager.getConnection(url, username, password);
 
-         return c;
+         return DriverManager.getConnection(url, username, password);
     }
 }

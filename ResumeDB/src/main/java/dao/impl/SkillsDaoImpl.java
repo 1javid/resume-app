@@ -2,9 +2,7 @@ package dao.impl;
 
 import dao.inter.ConnectionAbstract;
 import dao.inter.SkillsDaoInter;
-import entity.Country;
 import entity.Skills;
-import entity.UserSkills;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -72,7 +70,7 @@ public class SkillsDaoImpl extends ConnectionAbstract implements SkillsDaoInter 
                 }
 
             } catch (Exception ex) {
-                System.err.println(ex);
+                ex.printStackTrace();
                 b = false;
             }
             return b;

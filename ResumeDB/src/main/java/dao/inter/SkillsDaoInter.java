@@ -1,6 +1,5 @@
 package dao.inter;
 
-import entity.Country;
 import entity.Skills;
 
 import java.util.List;
