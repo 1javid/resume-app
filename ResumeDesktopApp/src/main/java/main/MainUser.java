@@ -17,6 +17,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,7 +33,6 @@ public class MainUser extends JFrame {
     private JPanel pnlProfile;
     private JPanel pnlSkills;
     private JPanel pnlDetails;
-    private JPanel pnlEmploymentHistory;
     private JTextArea txtAreaProfile;
     private JButton btnSave;
     private JTextField txtAddress;
@@ -76,22 +76,32 @@ public class MainUser extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                UserSkills selectedUserSkill = list.get(tblSkills.getSelectedRow());
-                String skillName = txtSkillName.getText();
-                Skills skill;
-                if (skillName != null && !skillName.trim().isEmpty()) {
-                    skill = new Skills(0, skillName);
-                    skillsDaoInter.insertSkills(skill);
-                } else {
-                    skill = (Skills) cbSkills.getSelectedItem();
+                String name = txtName.getText();
+                String surname = txtSurname.getText();
+                String address = txtAddress.getText();
+                String phone = txtPhone.getText();
+                String email = txtEmail.getText();
+                String dob = txtBirthdate.getText();
+
+                long l;
+                try {
+                    Date dtUtil = simpleDateFormat.parse(dob);
+                    l = dtUtil.getTime();
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
                 }
+                java.sql.Date bd = new java.sql.Date(l);
 
-                int power = slPower.getValue();
+                loggedInUser.setName(name);
+                loggedInUser.setSurname(surname);
+                loggedInUser.setAddress(address);
+                loggedInUser.setPhone(phone);
+                loggedInUser.setEmail(email);
+                loggedInUser.setBirthdate(bd);
+                loggedInUser.setProfileDesc(txtAreaProfile.getText());
 
-                selectedUserSkill.setPower(power);
-                selectedUserSkill.setSkills(skill);
 
-                userSkillsDaoInter.updateUserSkills(selectedUserSkill);
+                userDao.updateUser(loggedInUser);
             }
         });
 
